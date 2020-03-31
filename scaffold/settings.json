@@ -6,11 +6,6 @@
     "devtron": true,
     "desktopHCP": true,
     "desktopHCPIgnoreCompatibilityVersion": false,
-    "squirrel": {
-        "autoUpdateFeedUrl": "http://127.0.0.1/update/:platform/:version",
-        "autoUpdateFeedHeaders": {},
-        "autoUpdateCheckOnStart": false
-    },
     "webAppStartupTimeout": 60000,
     "exposeLocalFilesystem": false,
     "allowOriginLocalServer": false,
@@ -57,10 +52,6 @@
         "compression": "maximum",
         "win": {
             "target": "nsis"
-        },
-        "squirrelWindows": {
-            "iconUrl": "https://github.com/wojtkowiak/meteor-desktop/blob/beta/scaffold/assets/meteor.ico?raw=true",
-            "loadingGif": ".desktop/assets/loading.gif"
         },
         "publish": [
             {
