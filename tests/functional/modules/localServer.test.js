@@ -196,9 +196,9 @@ function localServerTests(useStreams = false) {
             expect(response.headers.get('Content-Type')).to.contain('video/mp4');
         });
 
-        it('should set application/woff for a .woff file', async () => {
+        it('should set font/woff for a .woff file', async () => {
             const response = await fetchFromLocalServer('/some-font.woff');
-            expect(response.headers.get('Content-Type')).to.contain('application/font-woff');
+            expect(response.headers.get('Content-Type')).to.contain('font/woff');
         });
 
         it('should set application/octet-stream for files without an extension', async () => {
