@@ -673,8 +673,16 @@ export default class App {
                 this.emit('beforeLoadFinish');
                 this.window.show();
                 this.window.focus();
-                if (this.settings.devtron && !this.isProduction()) {
-                    this.webContents.executeJavaScript('Desktop.devtron.install()');
+                if (!this.isProduction()) {
+                    const { devtron, redux, react, react_perf, meteor_devtools } = this.settings;
+                    const execute = this.webContents.executeJavaScript;
+
+                    if (devtron)
+                        execute('Desktop.devtron.install()');
+
+                    if (redux)
+
+
                 }
             }
         } else {
