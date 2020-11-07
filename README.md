@@ -125,7 +125,6 @@ Documentation
         * [List of known plugins:](#list-of-known-plugins)
   * [Squirrel autoupdate support](#squirrel-autoupdate-support)
   * [Native modules support](#native-modules-support)
-  * [Devtron](#devtron)
   * [Testing desktop app and modules](#testing-desktop-app-and-modules)
   * [MD_LOG_LEVEL](#md_log_level)
   * [Packaging](#packaging)
@@ -233,7 +232,6 @@ field|description
 `version`|version of the desktop app
 `projectName`|this will be used as a `name` in the generated app's package.json
 `devTools`|whether to install and open `devTools`, set automatically to false when building with `--production`
-`devtron`|check whether to install [`devtron`](http://electron.atom.io/devtron/), set automatically to false when building with `--production`, [more](#devtron)
 `singleInstance`|sets the single instance mode - [more](https://github.com/electron/electron/blob/master/docs/api/app.md#appmakesingleinstancecallback)
 `desktopHCP`|whether to use `.desktop` hot code push module - [more](#desktophcp---desktop-hot-code-push)
 <sup>`desktopHCPIgnoreCompatibilityVersion`</sup>|ignore the `.desktop` compatibility version and install new versions even if they can be incompatible
@@ -486,7 +484,7 @@ change in `version` field in the `desktop.version` to trigger rebuild (this file
 your project) - this can be any change like just adding random char to the hash
 - if your run a production build of your desktop app it will not receive updates from project run
  from `meteor` command unless you run it with `--production` - that is because development build
- has `devtron` added and therefore the `compatibilityVersion` is different  
+ therefore the `compatibilityVersion` is different  
 - after reload logs will no longer be shown in the console
 
 ## How to write plugins
@@ -531,14 +529,6 @@ https://github.com/ArekSredzki/electron-release-server
 
 This integration fully supports rebuilding native modules (npm packages with native node modules)
  against `Electron's` `node` version. The mechanism is enabled by default.
-
-## Devtron
-
-[`Devtron`](http://electron.atom.io/devtron/) is installed and activated by default. It is
-automatically removed when building with `--production`. As the communication between your Meteor
- app and the desktop side goes through IPC, this tool can be very handy because it can sniff on
- IPC messages.
-<kbd>![devtron IPC sniff](docs/devtron_ipc.gif)</kbd>
 
 ## Testing desktop app and modules
 
