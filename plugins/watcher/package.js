@@ -1,7 +1,7 @@
 /* eslint-disable prefer-arrow-callback */
 Package.describe({
     name: 'skadmin:meteor-desktop-watcher',
-    version: '2.2.12',
+    version: '2.2.13',
     summary: 'Watches .desktop dir and triggers rebuilds on file change.',
     git: 'https://github.com/sharekey/meteor-desktop',
     documentation: 'README.md',
