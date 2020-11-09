@@ -294,20 +294,24 @@ const Desktop = new (class {
 
 
 process.once('loaded', () => {
-    let devtron = null;
+    if (parseInt(process.versions.electron) < 10) {
+        let devtron = null;
 
-    try {
-        devtron = require('devtron'); // eslint-disable-line global-require
-        global.__devtron = { require, process }; // eslint-disable-line no-underscore-dangle
-    } catch (e) {
-        // If that fails, then this is a production build and devtron is not available.
+        try {
+            devtron = require('devtron'); // eslint-disable-line global-require
+            global.__devtron = {require, process}; // eslint-disable-line no-underscore-dangle
+        } catch (e) {
+            // If that fails, then this is a production build and devtron is not available.
+        }
+
+        Desktop.devtron = devtron;
     }
+
     if (process.env.NODE_ENV === 'test') {
         global.electronRequire = require;
         global.process = process;
     }
 
-    Desktop.devtron = devtron;
     Desktop.electron = [];
 
     exposedModules.forEach((module) => {
