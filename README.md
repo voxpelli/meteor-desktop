@@ -534,6 +534,8 @@ This integration fully supports rebuilding native modules (npm packages with nat
 
 ## Devtron
 
+[DEPRECATED] can only work with electron < 10
+
 [`Devtron`](http://electron.atom.io/devtron/) is installed and activated by default. It is
 automatically removed when building with `--production`. As the communication between your Meteor
  app and the desktop side goes through IPC, this tool can be very handy because it can sniff on

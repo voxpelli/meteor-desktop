@@ -52,7 +52,8 @@ function* iterate(array) {
  * @param {string} filePath            - path to the file being sent
  */
 function createReadStream(filePath) {
-    if (parseInt(process.versions.electron) >= 7) {
+    if (parseInt(process.versions.electron) >= 7
+        && parseInt(process.versions.electron) < 10) {
         const rv = new PassThrough();
         if (fs.existsSync(filePath)) {
             rv.push(fs.readFileSync(filePath));
