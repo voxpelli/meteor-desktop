@@ -26,6 +26,7 @@
             "electron-debug",
             "rimraf",
             "process",
+            "devtron",
             "ava",
             "send",
             "meteor-desktop-test-suite"
