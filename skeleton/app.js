@@ -131,11 +131,12 @@ export default class App {
                 app.on('second-instance', () => {
                     // Someone tried to run a second instance, we should focus our window.
                     if (this.window) {
-                        if (this.window.isMinimized())
+                        if (this.window.isMinimized()) {
                             this.window.restore();
-
-                        this.window.show();
-                        this.window.focus();
+                            this.window.focus();
+                        } else {
+                            this.window.show();
+                        }
                     }
                 });
             }
