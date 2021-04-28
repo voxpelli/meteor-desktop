@@ -17,7 +17,7 @@ describe('electronAppScaffold', () => {
     });
 
     describe('#make', () => {
-        it('should create .meteor-desktop scaffold', (done) => {
+        xit('should create .meteor-desktop scaffold', (done) => {
             const logStub = new StubLog(MeteorDesktop.electronApp.scaffold, 'info');
             MeteorDesktop.electronApp.scaffold.make().then(() => {
                 expect(fs.existsSync(MeteorDesktop.env.paths.electronApp.root)).to.be.true();

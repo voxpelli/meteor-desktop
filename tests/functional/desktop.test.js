@@ -94,9 +94,9 @@ describe('desktop', () => {
         });
     });
     describe('#scaffold', () => {
-        it('should create .desktop scaffold', () => {
+        it('should create .desktop scaffold', async () => {
             const logStub = new StubLog(MeteorDesktop.desktop, ['info']);
-            MeteorDesktop.desktop.scaffold();
+            await MeteorDesktop.desktop.scaffold();
             expect(fs.existsSync(MeteorDesktop.env.paths.desktop.root)).to.be.true();
             expect(fs.existsSync(MeteorDesktop.env.paths.desktop.settings)).to.be.true();
             expect(fs.existsSync(MeteorDesktop.env.paths.desktop.desktop)).to.be.true();
@@ -107,10 +107,10 @@ describe('desktop', () => {
             logStub.restore();
         });
 
-        it('should warn about .desktop that already exists', () => {
+        it('should warn about .desktop that already exists', async () => {
             shell.mkdir(MeteorDesktop.env.paths.desktop.root);
             const logStub = new StubLog(MeteorDesktop.desktop, ['info', 'warn']);
-            MeteorDesktop.desktop.scaffold();
+            await MeteorDesktop.desktop.scaffold();
             expect(logStub.stubs.warn).to.have.been.calledOnce();
             logStub.restore();
         });

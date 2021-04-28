@@ -7,6 +7,7 @@ import mockery from 'mockery';
 
 // need for running test
 import asar from 'asar'; // eslint-disable-line no-unused-vars
+import { writeFileSync } from 'fs-plus';
 
 chai.use(sinonChai);
 chai.use(dirty);
@@ -16,7 +17,10 @@ const {
 } = global;
 const { expect } = chai;
 
-const fs = {};
+const fs = {
+    readFile() { },
+    writeFile() { }
+};
 const METEOR_APP_CONTEXT = { env: { paths: { meteorApp: { release: 'release.file' } } } };
 const METEOR_RELEASES = [
     { release: 'METEOR@1.3.4', version: '1.3.4', semver: '1.3.4' },
