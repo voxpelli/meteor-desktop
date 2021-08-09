@@ -137,9 +137,9 @@ export default class App {
                         } else {
                             this.window.show();
                         }
-                    }
 
-                    this.emit('handleProtocolArgv', argv);
+                        this.emit('handleProtocolArgv', argv);
+                    }
                 });
             }
         }
