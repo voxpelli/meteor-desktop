@@ -130,7 +130,6 @@ export default class App {
             } else {
                 app.on('second-instance', (_e, argv) => {
                     // Someone tried to run a second instance, we should focus our window.
-                    console.log('SECINST: ', argv);
                     if (this.window) {
                         if (this.window.isMinimized()) {
                             this.window.restore();
@@ -139,6 +138,8 @@ export default class App {
                             this.window.show();
                         }
                     }
+
+                    this.emit('handleProtocolArgv', argv);
                 });
             }
         }
@@ -505,8 +506,6 @@ export default class App {
         );
 
         this.emit('afterInitialization');
-
-        console.log('ONREADY: ', process.argv);
     }
 
     /**
