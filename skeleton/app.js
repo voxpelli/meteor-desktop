@@ -111,6 +111,9 @@ export default class App {
         this.eventsBus.on('startupDidComplete', this.handleAppStartup.bind(this, true));
         this.eventsBus.on('revertVersionReady', () => { this.meteorAppVersionChange = true; });
 
+        this.app.once('open-url', (e, url) => {
+            this.startupUrl = url;
+        });
         this.app.on('ready', this.onReady.bind(this));
         this.app.on('window-all-closed', () => this.app.quit());
     }
