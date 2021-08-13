@@ -111,6 +111,9 @@ export default class App {
         this.eventsBus.on('startupDidComplete', this.handleAppStartup.bind(this, true));
         this.eventsBus.on('revertVersionReady', () => { this.meteorAppVersionChange = true; });
 
+        this.app.once('open-url', (e, url) => {
+            this.startupUrl = url;
+        });
         this.app.on('ready', this.onReady.bind(this));
         this.app.on('window-all-closed', () => this.app.quit());
     }
@@ -128,7 +131,7 @@ export default class App {
                 this.l.warn('current instance was terminated because another instance is running');
                 app.quit();
             } else {
-                app.on('second-instance', (_e, argv) => {
+                app.on('second-instance', () => {
                     // Someone tried to run a second instance, we should focus our window.
                     if (this.window) {
                         if (this.window.isMinimized()) {
@@ -137,8 +140,6 @@ export default class App {
                         } else {
                             this.window.show();
                         }
-
-                        this.emit('handleProtocolArgv', argv);
                     }
                 });
             }
