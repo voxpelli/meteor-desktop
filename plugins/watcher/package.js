@@ -1,7 +1,7 @@
 /* eslint-disable prefer-arrow-callback */
 Package.describe({
     name: 'skadmin:meteor-desktop-watcher',
-    version: '2.2.15',
+    version: '2.3.0',
     summary: 'Watches .desktop dir and triggers rebuilds on file change.',
     git: 'https://github.com/sharekey/meteor-desktop',
     documentation: 'README.md',
@@ -16,7 +16,7 @@ Package.onUse(function onUse(api) {
     api.versionsFrom('METEOR@1.3.3');
     api.use('ecmascript');
     api.use([
-        'skadmin:meteor-desktop-bundler@2.2.15',
+        'skadmin:meteor-desktop-bundler@2.3.0',
     ], ['server'], {
         weak: true
     });
