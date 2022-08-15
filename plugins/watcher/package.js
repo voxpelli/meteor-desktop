@@ -16,7 +16,7 @@ Package.onUse(function onUse(api) {
     api.versionsFrom('METEOR@1.3.3');
     api.use('ecmascript');
     api.use([
-        'skadmin:meteor-desktop-bundler@3.0.0',
+        'skadmin:meteor-desktop-bundler@2.3.0',
     ], ['server'], {
         weak: true
     });
