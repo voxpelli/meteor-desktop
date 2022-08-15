@@ -10,8 +10,8 @@ Fixed to work with Meteor 2.6+ Node 14+.
 
 Breaking: changes to publish packages under a new name.
 * `meteor-desktop` npm package renamed to `@meteor-community/meteor-desktop`
-* `omega:meteor-desktop-bundler` Atmosphere package renamed to `communitypackages:meteor-desktop-bundler`
-* `omega:meteor-desktop-watcher` Atmosphere package renamed to `communitypackages:meteor-desktop-watcher`
+* `omega:meteor-desktop-bundler` Atmosphere package renamed to `skadmin:meteor-desktop-bundler`
+* `omega:meteor-desktop-watcher` Atmosphere package renamed to `skadmin:meteor-desktop-watcher`
 * Updated all references to these package names in the code.
 * Removed old wojtkowiak build links in README.
 * Removed Contributing and Roadmap README entries.
