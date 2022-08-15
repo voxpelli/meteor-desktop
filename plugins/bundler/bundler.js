@@ -467,7 +467,7 @@ class MeteorDesktopBundler {
         //                    `require` to load things from app's node_modules
         files.forEach((file) => {
             if (file.getArch() === 'web.cordova') {
-                if (file.getPackageName() === 'skadmin:meteor-desktop-bundler' &&
+                if (file.getPackageName() === 'communitypackages:meteor-desktop-bundler' &&
                     file.getPathInPackage() === 'version._desktop_.js'
                 ) {
                     versionFile = file;
@@ -614,7 +614,6 @@ class MeteorDesktopBundler {
                     version: desktopSettings.desktopVersion,
                     compatibilityVersion: desktopSettings.compatibilityVersion
                 };
-
                 self.stampPerformance('file add');
                 inputFile.addAsset({
                     path: 'version.desktop.json',
@@ -866,7 +865,9 @@ class MeteorDesktopBundler {
                                         if (error) {
                                             reject(error);
                                         } else {
-                                            fs.writeFileSync(filePath, uglifiedCode);
+                                            // in development mode, uglifiedCode will be undefined, which causes an error since fs.writeFileSync introduced type checking of the data parameter in Node 14.
+                                            // https://github.com/wojtkowiak/meteor-desktop/issues/303#issuecomment-1025337912
+                                            fs.writeFileSync(filePath, uglifiedCode || code);
                                             resolve();
                                         }
                                     }
