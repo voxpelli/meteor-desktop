@@ -1,6 +1,6 @@
 {
   "name": "@sharekey/meteor-desktop",
-  "version": "2.3.0",
+  "version": "2.4.0",
   "bin": {
     "meteor-desktop": "dist/bin/cli.js"
   },
@@ -20,7 +20,7 @@
     "report-coverage": "nyc report --reporter=lcov > coverage.lcov && codecov",
     "version": "node dist/scripts/propagateVersion.js && git add plugins",
     "postinstall": "node dist/scripts/addToScripts || echo",
-    "publish-plugins": "(cls || reset) && cd plugins/bundler && (meteor publish --release=METEOR@1.8.1) && cd ../watcher && (meteor publish --release=METEOR@1.8.1)",
+    "publish-plugins": "(cls || reset) && cd plugins/bundler && (meteor publish --release=METEOR@2.6) && cd ../watcher && (meteor publish --release=METEOR@2.6)",
     "prepublish": "npm run build || echo",
     "publish-all": "npm run publish-plugins && npm publish",
     "build": "babel lib --out-dir dist --source-maps inline --copy-files",
@@ -63,6 +63,7 @@
     "rewire": "3.0.2",
     "run-sequence": "1.2.2",
     "send": "0.17.1",
+    "semistandard": "^16.0.1",
     "serve-static": "1.13.2",
     "server-destroy": "1.0.1",
     "sha1-file": "1.0.1",
@@ -90,7 +91,7 @@
     "regenerator-runtime": "0.12.1",
     "rimraf": "3.0.0",
     "semver": "5.5.1",
-    "shelljs": "0.8.4",
+    "shelljs": "0.8.5",
     "single-line-log": "1.1.2",
     "terser": "3.17.0"
   },

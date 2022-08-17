@@ -1,7 +1,7 @@
 /* eslint-disable prefer-arrow-callback */
 Package.describe({
     name: 'skadmin:meteor-desktop-watcher',
-    version: '2.3.0',
+    version: '3.0.1',
     summary: 'Watches .desktop dir and triggers rebuilds on file change.',
     git: 'https://github.com/sharekey/meteor-desktop',
     documentation: 'README.md',
@@ -9,7 +9,7 @@ Package.describe({
 });
 
 Npm.depends({
-    chokidar: '2.0.2'
+    chokidar: '3.5.3'
 });
 
 Package.onUse(function onUse(api) {

@@ -534,8 +534,6 @@ This integration fully supports rebuilding native modules (npm packages with nat
 
 ## Devtron
 
-[DEPRECATED] can only work with electron < 10
-
 [`Devtron`](http://electron.atom.io/devtron/) is installed and activated by default. It is
 automatically removed when building with `--production`. As the communication between your Meteor
  app and the desktop side goes through IPC, this tool can be very handy because it can sniff on
@@ -597,26 +595,6 @@ Currently there are some defaults provided only for `Windows` and `Mac`. If you 
 ##### Building for Windows Store (AppX)
 Change `target: ["appx"]` in `win` section of `builderOptions`. In case of problems please refer to
 [electron-builder](https://github.com/electron-userland/electron-builder) documentation.
-
-## Roadmap
-This project recently hit `1.0.0` however you should still expect many breaking changes in the upcoming versions.
-Any feedback/feature requests/PR is highly welcomed and highly anticipated.  
-
-If you want to check what is planned and what I am working on, first you can check accepted
-issues on github [here](https://github.com/wojtkowiak/meteor-desktop/issues?q=is%3Aissue+is%3Aopen+label%3Aaccepted).
-You can see the backlog and roadmap in form of epics on Taiga
-[here](https://tree.taiga.io/project/wojtkowiak-meteor-desktop/kanban). The project is public so
-you can also comment and vote there.
-
-## Contribution
-
-PRs are always welcome and encouraged. If you need help at any stage of preparing a PR, just
-file an issue. It is also good, to file a feature request issue before you start working to
-discuss the need and implementation approach.
-
-If you want, you can always contribute by donating:
-
-<a href='https://pledgie.com/campaigns/33341'><img alt='Click here to lend your support to: meteor-desktop and make a donation at pledgie.com !' src='https://pledgie.com/campaigns/33341.png?skin_name=chrome' border='0' ></a>
 
 ##### ! devEnvSetup.js !
 To help you contribute, there is a development environment setup script. If you have this repo
