@@ -32,8 +32,7 @@
 import fs from 'fs';
 import originalFs from 'original-fs';
 import url from 'url';
-// TODO: maybe use node-fetch?
-import request from 'request';
+import axios from 'axios';
 import queue from 'queue';
 import IsDesktopInjector from './isDesktopInjector';
 
@@ -56,7 +55,7 @@ export default class AssetBundleDownloader {
         this.assetBundle = assetBundle;
         this.baseUrl = baseUrl;
         this.injector = new IsDesktopInjector();
-        this.httpClient = request;
+        this.httpClient = axios;
 
         this.eTagWithSha1HashPattern = new RegExp('"([0-9a-f]{40})"');
 
@@ -111,7 +110,7 @@ export default class AssetBundleDownloader {
 
         /**
          * @param {Asset} asset - Asset that was downloaded.
-         * @param {Object} response - Response object from `request`.
+         * @param {Object} response - Response object from `axios`.
          * @param {Buffer} body - Body of downloaded the file.
          */
         function onResponse(asset, response, body) {
@@ -180,17 +179,15 @@ export default class AssetBundleDownloader {
                 self.assetsDownloading.push(asset);
                 const downloadUrl = self.downloadUrlForAsset(asset);
                 self.queue.push((callback) => {
-                    self.httpClient(
-                        { uri: downloadUrl, encoding: null },
-                        (error, response, body) => {
-                            if (!error) {
-                                onResponse(asset, response, body);
-                            } else {
-                                onFailure(asset, error);
-                            }
-                            callback();
-                        }
-                    );
+                    self.httpClient.get(
+                        downloadUrl,
+                        { responseType: 'blob', validateStatus: () => true }
+                    ).then((response) => {
+                        onResponse(asset, response, response.data);
+                        callback();
+                    }).catch((error) => {
+                        onFailure(asset, error);
+                    });
                 });
             }
         });
@@ -242,9 +239,9 @@ export default class AssetBundleDownloader {
      * @private
      */
     verifyResponse(response, asset, body) {
-        if (response.statusCode !== 200) {
+        if (response.status !== 200) {
             throw new Error(
-                `non-success status code ${response.statusCode} for asset: ${asset.filePath}`
+                `non-success status code ${response.status} for asset: ${asset.filePath}`
             );
         }
 

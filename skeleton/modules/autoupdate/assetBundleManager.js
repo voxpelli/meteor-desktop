@@ -34,7 +34,7 @@ import fs from 'fs-plus';
 import rimraf from 'rimraf';
 import originalFs from 'original-fs';
 import url from 'url';
-import request from 'request';
+import axios from 'axios';
 import shell from 'shelljs';
 
 import AssetBundle from './assetBundle';
@@ -75,7 +75,7 @@ class AssetBundleManager {
         this.callback = null;
         this.assetBundleDownloader = null;
 
-        this.httpClient = request;
+        this.httpClient = axios;
 
         this.loadDownloadedAssetBundles();
     }
@@ -108,26 +108,31 @@ class AssetBundleManager {
      */
     getDesktopVersion(desktopVersionUrl, callback) {
         if ('desktopHCP' in this.appSettings && this.appSettings.desktopHCP) {
-            this.httpClient(desktopVersionUrl, (error, response, body) => {
-                let desktopVersion = {};
-                if (error) {
-                    this.didFail(`error downloading version.desktop.json: ${error}`);
-                    return;
+            this.httpClient.get(
+                desktopVersionUrl,
+                {
+                    transformResponse: res => res,
+                    validateStatus: () => true
                 }
-                if (response.statusCode !== 200) {
+            ).then((response) => {
+                let desktopVersion = {};
+
+                if (response.status !== 200) {
                     this.didFail(
-                        `non-success status code ${response.statusCode} for version.desktop.json`
+                        `non-success status code ${response.status} for version.desktop.json`
                     );
                     return;
                 }
 
                 try {
-                    desktopVersion = JSON.parse(body);
+                    desktopVersion = JSON.parse(response.data);
                 } catch (e) {
                     this.didFail(`error parsing version.desktop.json: ${e.message}`);
                     return;
                 }
                 callback(desktopVersion);
+            }).catch((error) => {
+                this.didFail(`error downloading version.desktop.json: ${error}`);
             });
         } else {
             callback(null);
@@ -146,21 +151,21 @@ class AssetBundleManager {
 
         this.log.info(`trying to query ${manifestUrl}`);
 
-        this.httpClient(manifestUrl, (error, response, body) => {
-            if (error) {
-                this.didFail(`error downloading asset manifest: ${error}`);
-                return;
-            }
-            if (response.statusCode !== 200) {
+        this.httpClient.get(manifestUrl, {
+            transformResponse: res => res,
+            validateStatus: () => true,
+        }).then((response) => {
+            if (response.status !== 200) {
                 this.didFail(
-                    `non-success status code ${response.statusCode} for asset manifest`
+                    `non-success status code ${response.status} for asset manifest`
                 );
                 return;
             }
 
             try {
-                manifest = new AssetManifest(this.log, body);
+                manifest = new AssetManifest(this.log, response.data);
             } catch (e) {
+                this.log.error(e);
                 this.didFail(e.message);
                 return;
             }
@@ -222,7 +227,7 @@ class AssetBundleManager {
 
                 // Copy downloaded asset manifest to file.
                 try {
-                    fs.writeFileSync(path.join(this.downloadDirectory, 'program.json'), body);
+                    fs.writeFileSync(path.join(this.downloadDirectory, 'program.json'), response.data);
                 } catch (e) {
                     this.didFail(e.message);
                     return;
@@ -245,6 +250,8 @@ class AssetBundleManager {
 
                 this.downloadAssetBundle(assetBundle, baseUrl);
             });
+        }).catch((error) => {
+            this.didFail(`error downloading asset manifest: ${error}`);
         });
     }
 
